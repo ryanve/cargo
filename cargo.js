@@ -3,7 +3,7 @@
  * @author      Ryan Van Etten <@ryanve>
  * @link        github.com/ryanve/cargo
  * @license     MIT
- * @version     0.1.0
+ * @version     0.1.1
  */
 
 /*jslint browser: true, devel: true, node: true, passfail: false, bitwise: true, continue: true
@@ -38,6 +38,7 @@
             }
           , hasSession = testStorage(sessionStorage)
           , hasLocal = testStorage(localStorage)
+          , noop = function () {}
           , cargo = {};
 
         function getSessionItem(k) {
@@ -72,12 +73,12 @@
             return localStorage[REM](k);
         }
         
-        cargo['removeLocalItem'] = removeSessionItem;
-        cargo['setLocalItem'] = setLocalItem;
-        cargo['getLocalItem'] = getLocalItem;
-        cargo['removeSessionItem'] = removeSessionItem;
-        cargo['setSessionItem'] = setSessionItem;
-        cargo['getSessionItem'] = getSessionItem;
+        cargo['getLocalItem']      = hasLocal ? getLocalItem : noop;
+        cargo['setLocalItem']      = hasLocal ? setLocalItem : noop;
+        cargo['removeLocalItem']   = hasLocal ? removeLocalItem : noop;
+        cargo['getSessionItem']    = hasSession ? getSessionItem : noop;
+        cargo['setSessionItem']    = hasSession ? setSessionItem : noop;
+        cargo['removeSessionItem'] = hasSession ? removeSessionItem : noop;
         
         return cargo;
         
