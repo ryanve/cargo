@@ -50,14 +50,10 @@
             }
             sessionStorage[SET](k, v);
             return v;
-        }; 
+        }
         
         function removeSessionItem(k) {
             return sessionStorage[REM](k);
-        }
-        
-        function getSessionItem(k) {
-            return sessionStorage[GET](k);
         }
         
         function getLocalItem(k) {
@@ -70,7 +66,7 @@
             }
             localStorage[SET](k, v);
             return v;
-        }; 
+        } 
         
         function removeLocalItem(k) {
             return localStorage[REM](k);
