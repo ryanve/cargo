@@ -1,5 +1,5 @@
 /*!
- * cargo        localStorage API
+ * cargo        HTML5 localStorage/sessionStorage module
  * @author      Ryan Van Etten <@ryanve>
  * @link        github.com/ryanve/cargo
  * @license     MIT
