@@ -3,7 +3,7 @@
  * @author      Ryan Van Etten <@ryanve>
  * @link        github.com/ryanve/cargo
  * @license     MIT
- * @version     0.1.1
+ * @version     0.2.0
  */
 
 /*jslint browser: true, devel: true, node: true, passfail: false, bitwise: true, continue: true
@@ -11,10 +11,10 @@
 , regexp: true, undef: true, sloppy: true, stupid: true, sub: true, vars: true, white: true
 , indent: 4, maxerr: 180 */
 
-(function(root, name, factory) {// github.com/umdjs/umd
+(function(root, name, definition) {// github.com/umdjs/umd
     if (typeof module != 'undefined' && module['exports']) { 
-        module['exports'] = factory(); // node / ender / common
-    } else { root[name] = factory(); } // browser
+        module['exports'] = definition(); // node|ender|common
+    } else { root[name] = definition(); } // browser
 }(this, 'cargo', function() {
 
     // Use array notation on public props to ensure safe compilation
@@ -25,63 +25,45 @@
         
         var localStorage = window['localStorage']
           , sessionStorage = window['sessionStorage']
-          , GET = 'getItem'
-          , SET = 'setItem'
-          , REM = 'removeItem'
           , testStorage = function(api, key) {
                 try {
-                    key = key || '_cargo';
-                    api[SET](key, key);
-                    api[REM](key);
-                    return true;
-                } catch (e) { return false; }
+                    key = key || 'cargo';
+                    api['setItem'](key, key);
+                    api['removeItem'](key);
+                    return 1;
+                } catch (e) {}
             }
-          , hasSession = testStorage(sessionStorage)
-          , hasLocal = testStorage(localStorage)
+          , JSON = window['JSON'] || false
+          , notWhitespace = /\S+/g
           , noop = function () {}
           , cargo = {};
 
-        function getSessionItem(k) {
-            return sessionStorage[GET](k);
+        function makeAbstraction(api) {
+            return testStorage(api) ? {
+                'get': function(k) {
+                    k = api['getItem'](k);
+                    return null == k ? void 0 : k;
+                }
+              , 'set': function(k, v) {
+                    v = typeof v == 'function' ? v.call(this, this['get'](k)): v;
+                    api['setItem'](k, v);
+                    return v;
+                }
+              , 'remove': function(k) {
+                    var i = '';
+                    k = (i + k).match(notWhitespace) || i;
+                    i = i.length;
+                    while (i--) {
+                        api['removeItem'](k[i]);
+                    }
+                }
+              , 'decode': JSON['parse']
+              , 'encode': JSON['stringify']
+            } : false;
         }
 
-        function setSessionItem(k, v) {
-            while (typeof v == 'function') {
-                v = v.call(this, sessionStorage[GET](k));
-            }
-            sessionStorage[SET](k, v);
-            return v;
-        }
-        
-        function removeSessionItem(k) {
-            return sessionStorage[REM](k);
-        }
-        
-        function getLocalItem(k) {
-            return localStorage[GET](k);
-        }
-
-        function setLocalItem(k, v) {
-            while (typeof v == 'function') {
-                v = v.call(this, localStorage[GET](k));
-            }
-            localStorage[SET](k, v);
-            return v;
-        } 
-        
-        function removeLocalItem(k) {
-            return localStorage[REM](k);
-        }
-        
-        cargo['getLocalItem']      = hasLocal ? getLocalItem : noop;
-        cargo['setLocalItem']      = hasLocal ? setLocalItem : noop;
-        cargo['removeLocalItem']   = hasLocal ? removeLocalItem : noop;
-        cargo['getSessionItem']    = hasSession ? getSessionItem : noop;
-        cargo['setSessionItem']    = hasSession ? setSessionItem : noop;
-        cargo['removeSessionItem'] = hasSession ? removeSessionItem : noop;
-        
+        cargo['session'] = makeAbstraction(sessionStorage);
+        cargo['local'] = makeAbstraction(localStorage);
         return cargo;
-        
     }(window));
-
 }));
