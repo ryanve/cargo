@@ -35,7 +35,6 @@
             }
           , JSON = window['JSON'] || false
           , notWhitespace = /\S+/g
-          , noop = function () {}
           , cargo = {};
 
         function makeAbstraction(api) {
