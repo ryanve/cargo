@@ -1,7 +1,7 @@
 {
     "name": "cargo",
     "description": "HTML5 localStorage/sessionStorage module",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "homepage": "https://github.com/ryanve/cargo",
     "author": "Ryan Van Etten <ryanve@gmail.com> (http://ryanve.com)",
     "keywords": ["storage", "data", "html5", "ender"],
