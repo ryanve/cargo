@@ -1,9 +1,3 @@
-/*!
- * cargo 0.3.0+201401201815
- * https://github.com/ryanve/cargo
- * MIT License 2014 Ryan Van Etten
- */
-
 (function(root, name, make) {
   if (typeof module != 'undefined' && module['exports']) module['exports'] = make();
   else root[name] = make();

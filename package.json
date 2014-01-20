@@ -1,13 +1,21 @@
 {
-    "name": "cargo",
-    "description": "HTML5 localStorage/sessionStorage module",
-    "version": "0.2.0",
-    "homepage": "https://github.com/ryanve/cargo",
-    "author": "Ryan Van Etten <ryanve@gmail.com> (http://ryanve.com)",
-    "keywords": ["storage", "data", "html5", "ender"],
-    "main": "./cargo.js",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/ryanve/cargo.git"
-    }
+  "name": "cargo",
+  "description": "HTML5 localStorage and sessionStorage module",
+  "version": "0.3.0",
+  "homepage": "https://github.com/ryanve/cargo",
+  "license": "MIT",
+  "author": "Ryan Van Etten",
+  "keywords": ["storage", "data", "html5", "ender"],
+  "main": "cargo.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ryanve/cargo.git"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-uglify": "~0.3.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-jshint": "~0.8.0",
+    "aok": "~1.7.1"
+  }
 }
