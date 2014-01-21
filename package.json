@@ -1,11 +1,11 @@
 {
   "name": "cargo",
-  "description": "HTML5 localStorage and sessionStorage module",
-  "version": "0.6.0",
+  "description": "HTML5 web storage module",
+  "version": "0.6.1",
   "homepage": "https://github.com/ryanve/cargo",
   "license": "MIT",
   "author": "Ryan Van Etten",
-  "keywords": ["storage", "data", "html5", "ender"],
+  "keywords": ["storage", "data", "html5", "browser", "ender"],
   "main": "cargo.js",
   "repository": {
     "type": "git",

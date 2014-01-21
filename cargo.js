@@ -1,5 +1,5 @@
 /*!
- * cargo 0.6.0+201401210440
+ * cargo 0.6.1+201401210540
  * https://github.com/ryanve/cargo
  * MIT License 2014 Ryan Van Etten
  */
@@ -22,7 +22,7 @@
   
   function test(api, key) {
     try {
-      key = key || 'cargo'+(-new Date);
+      key = key || 'cargo'+-new Date;
       api['setItem'](key, key);
       api['removeItem'](key);
       return true;
