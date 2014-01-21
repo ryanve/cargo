@@ -5,14 +5,16 @@
 $ npm install cargo
 ```
 
-## API ([0.5](../../releases))
+## API ([0.6](../../releases))
 
-### `cargo.local`
+### `cargo.local()`
+- `cargo.local(key?, value?)`
 - `cargo.local.get(key)`
 - `cargo.local.set(key, value)`
 - `cargo.local.remove(key)`
 
-### `cargo.session`
+### `cargo.session()`
+- `cargo.session(key?, value?)`
 - `cargo.session.get(key)`
 - `cargo.session.set(key, value)`
 - `cargo.session.remove(key)`
