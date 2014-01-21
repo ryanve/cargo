@@ -2,7 +2,7 @@
   var common = typeof module != 'undefined' && !!module.exports;
   var aok = common ? require('../node_modules/aok') : root.aok;
   var cargo = common ? require('../src') : root.cargo;
-
+  aok.prototype.express = aok.info;
   aok.pass(['local', 'session'], function(type) {
     var id = '.' + type;
     aok.fail(['get', 'set', 'remove'], function(method) {
