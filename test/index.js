@@ -25,4 +25,6 @@
       }
     });
   });
+  cargo.local.encode && aok({ id:'.encode', test: typeof cargo.local.encode({}) == 'string' });
+  cargo.local.decode && aok({ id:'.decode', test: typeof cargo.local.decode('{}') == 'object' });
 }(this));

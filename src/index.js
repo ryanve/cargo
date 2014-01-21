@@ -32,8 +32,8 @@
       return n ? f['get'](k) : clone(all);
     }
     f['stores'] = stores;
-    f['encode'] = son['parse'];
-    f['decode'] = son['stringify'];
+    f['decode'] = son['parse'];
+    f['encode'] = son['stringify'];
     f['get'] = stores ? function(k) {
       return und == (k = api['getItem'](k)) ? und : k;
     } : function(k) {

@@ -1,5 +1,5 @@
 /*!
- * cargo 0.6.1+201401210540
+ * cargo 0.6.2+201401211835
  * https://github.com/ryanve/cargo
  * MIT License 2014 Ryan Van Etten
  */
@@ -38,8 +38,8 @@
       return n ? f['get'](k) : clone(all);
     }
     f['stores'] = stores;
-    f['encode'] = son['parse'];
-    f['decode'] = son['stringify'];
+    f['decode'] = son['parse'];
+    f['encode'] = son['stringify'];
     f['get'] = stores ? function(k) {
       return und == (k = api['getItem'](k)) ? und : k;
     } : function(k) {
