@@ -11,16 +11,17 @@
       return exists;
     }) || aok({
       id: id,
-      test: aok.can(function(api) {
-        var k = id;
+      test: function() {
+        var k = id, api = cargo[type];
         api.set(k, k);
-        if (k !== api.get(k)) throw new Error;
+        if (k !== api.get(k)) return false;
         api.remove(k);
-        if (null != api.get(k)) throw new Error;
-        if (k !== api(k, k) || k !== api(k)) throw new Error;
+        if (null != api.get(k)) return false;
+        if (k !== api(k, k) || k !== api(k)) return false;
         api(k, void 0); // should delegate to .remove
-        if (null != api(k)) throw new Error;
-      })(cargo[type])
+        if (null != api(k)) return false;
+        return true;
+      }
     });
   });
 }(this));
