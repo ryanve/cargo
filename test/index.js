@@ -21,7 +21,7 @@
         if (k !== api(k, k) || k !== api(k)) return false;
         api(k, void 0); // should delegate to .remove
         if (null != api(k)) return false;
-        return true;
+        return '[object Object]' === aok.explain(api());
       }
     });
   });
