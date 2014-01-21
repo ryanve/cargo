@@ -15,7 +15,7 @@
         } catch (e) {}
       };
 
-  function abstract(api) {
+  function abstracts(api) {
     return !!testStorage(api) && {
         'get': function(k) {
           k = api['getItem'](k);
@@ -33,7 +33,7 @@
     };
   }
 
-  cargo['session'] = abstract(win['sessionStorage']);
-  cargo['local'] = abstract(win['localStorage']);
+  cargo['session'] = abstracts(win['sessionStorage']);
+  cargo['local'] = abstracts(win['localStorage']);
   return cargo;
 }));
