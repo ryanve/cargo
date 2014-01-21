@@ -1,5 +1,5 @@
 /*!
- * cargo 0.3.0+201401201815
+ * cargo 0.4.0+201401210140
  * https://github.com/ryanve/cargo
  * MIT License 2014 Ryan Van Etten
  */
@@ -12,7 +12,6 @@
   var cargo = {}
     , win = window
     , JSON = win['JSON'] || false
-    , notWhitespace = /\S+/g
     , testStorage = function(api, key) {
         try {
           key = key || 'cargo';
@@ -22,28 +21,25 @@
         } catch (e) {}
       };
 
-  function abstract(api) {
+  function abstracts(api) {
     return !!testStorage(api) && {
         'get': function(k) {
           k = api['getItem'](k);
           return null == k ? void 0 : k;
         }
       , 'set': function(k, v) {
-          api['setItem'](k, typeof v == 'function' ? v = v.call(this, this['get'](k)) : v);
+          api['setItem'](k, typeof v == 'function' ? v = v.call(this) : v);
           return v;
         }
       , 'remove': function(k) {
-          var i = '';
-          k = (i + k).match(notWhitespace) || i;
-          i = i.length;
-          while (i--) api['removeItem'](k[i]);
+          api['removeItem'](k);
         }
       , 'decode': JSON['parse']
       , 'encode': JSON['stringify']
     };
   }
 
-  cargo['session'] = abstract(win['sessionStorage']);
-  cargo['local'] = abstract(win['localStorage']);
+  cargo['session'] = abstracts(win['sessionStorage']);
+  cargo['local'] = abstracts(win['localStorage']);
   return cargo;
 }));
