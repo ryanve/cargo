@@ -4,8 +4,8 @@
 }(this, 'cargo', function() {
 
   var cargo = {}
-    , win = window
-    , JSON = win['JSON'] || false
+    , win = typeof window != 'undefined' && window
+    , son = typeof JSON != 'undefined' && JSON || false
     , has = {}.hasOwnProperty;
     
   function clone(o) {
@@ -32,8 +32,8 @@
       return n ? f['get'](k) : clone(all);
     }
     f['stores'] = stores;
-    f['encode'] = JSON['parse'];
-    f['decode'] = JSON['stringify'];
+    f['encode'] = son['parse'];
+    f['decode'] = son['stringify'];
     f['get'] = stores ? function(k) {
       return und == (k = api['getItem'](k)) ? und : k;
     } : function(k) {
