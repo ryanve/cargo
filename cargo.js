@@ -1,5 +1,5 @@
 /*!
- * cargo 0.4.0+201401210140
+ * cargo 0.4.1+201401210220
  * https://github.com/ryanve/cargo
  * MIT License 2014 Ryan Van Etten
  */
@@ -14,7 +14,7 @@
     , JSON = win['JSON'] || false
     , testStorage = function(api, key) {
         try {
-          key = key || 'cargo';
+          key = key || 'cargo'+(-new Date);
           api['setItem'](key, key);
           api['removeItem'](key);
           return 1;
