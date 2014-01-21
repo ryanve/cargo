@@ -4,11 +4,19 @@
   var cargo = common ? require('../src') : root.cargo;
 
   aok.pass(['local', 'session'], function(type) {
-    aok.pass(['get', 'set', 'remove'], function(method) {
-      aok({
-        id: ['', type, method].join('.'),
-        test: typeof cargo[type][method] == 'function'
-      });
+    var id = '.' + type;
+    aok.fail(['get', 'set', 'remove'], function(method) {
+      var sub = cargo[type][method], exists = typeof sub == 'function' || sub === false;
+      aok({ id: [id, method].join('.'), test: exists });
+      return exists;
+    }) || aok({
+      id: id,
+      test: aok.can(function(api) {
+        var k = id;
+        api.set(k, k);
+        if (k !== api.get(k)) throw new Error;
+        api.remove(k);
+      })(cargo[type])
     });
   });
 }(this));
