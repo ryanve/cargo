@@ -1,9 +1,8 @@
 # [cargo](../../)
-#### HTML5 `localStorage` and `sessionStorage` JavaScript [module](https://npmjs.org/package/cargo)
+#### HTML5 web storage JavaScript [module](https://npmjs.org/package/cargo)
 
-```sh
-$ npm install cargo
-```
+- Uses native `localStorage` and `sessionStorage` [where available](https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Storage#Browser_compatibility)
+- Gracefully degrades to temporary storage
 
 ## API ([0.6](../../releases))
 
@@ -19,9 +18,11 @@ $ npm install cargo
 - `cargo.session.set(key, value)`
 - `cargo.session.remove(key)`
 
-## Compatibility
+## [NPM](https://npmjs.org/package/cargo)
 
-Uses native storage [where available](https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Storage#Browser_compatibility) and otherwise degrades gracefully to temporary storage.
+```sh
+$ npm install cargo
+```
 
 ## Fund
 
