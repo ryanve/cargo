@@ -5,6 +5,7 @@
   aok.prototype.express = aok.info;
   aok.pass(['local', 'session'], function(type) {
     var id = '.' + type;
+    aok.info(id + '.stores: ' + cargo[type].stores);
     aok.fail(['get', 'set', 'remove'], function(method) {
       var sub = cargo[type][method], exists = typeof sub == 'function' || sub === false;
       aok({ id: [id, method].join('.'), test: exists });
