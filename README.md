@@ -5,7 +5,7 @@
 $ npm install cargo
 ```
 
-## API ([0.3](../../releases))
+## API ([0.4](../../releases))
 
 ### `cargo.local`
 - `cargo.local.get(key)`
