@@ -16,7 +16,7 @@
   
   function test(api, key) {
     try {
-      key = key || 'cargo'+(-new Date);
+      key = key || 'cargo'+-new Date;
       api['setItem'](key, key);
       api['removeItem'](key);
       return true;
