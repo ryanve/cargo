@@ -5,7 +5,7 @@
 $ npm install cargo
 ```
 
-## API ([0.4](../../releases))
+## API ([0.5](../../releases))
 
 ### `cargo.local`
 - `cargo.local.get(key)`
@@ -16,6 +16,10 @@ $ npm install cargo
 - `cargo.session.get(key)`
 - `cargo.session.set(key, value)`
 - `cargo.session.remove(key)`
+
+## Compatibility
+
+Uses native storage [where available](https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Storage#Browser_compatibility) and otherwise degrades gracefully to temporary storage.
 
 ## Fund
 
