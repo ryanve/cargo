@@ -6,7 +6,6 @@
   var cargo = {}
     , win = window
     , JSON = win['JSON'] || false
-    , notWhitespace = /\S+/g
     , testStorage = function(api, key) {
         try {
           key = key || 'cargo';
@@ -27,10 +26,7 @@
           return v;
         }
       , 'remove': function(k) {
-          var i = '';
-          k = (i + k).match(notWhitespace) || i;
-          i = i.length;
-          while (i--) api['removeItem'](k[i]);
+          api['removeItem'](k);
         }
       , 'decode': JSON['parse']
       , 'encode': JSON['stringify']
