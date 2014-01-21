@@ -22,7 +22,7 @@
           return null == k ? void 0 : k;
         }
       , 'set': function(k, v) {
-          api['setItem'](k, typeof v == 'function' ? v = v.call(this, this['get'](k)) : v);
+          api['setItem'](k, typeof v == 'function' ? v = v.call(this) : v);
           return v;
         }
       , 'remove': function(k) {
