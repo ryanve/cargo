@@ -6,38 +6,50 @@
   var cargo = {}
     , win = window
     , JSON = win['JSON'] || false
-    , canStore = function(api, key) {
-        try {
-          key = key || 'cargo'+(-new Date);
-          api['setItem'](key, key);
-          api['removeItem'](key);
-          return true;
-        } catch (e) {}
-        return false;
-      };
-
+    , has = {}.hasOwnProperty;
+    
+  function clone(o) {
+    var k, r = {};
+    for (k in o) has.call(o, k) && (r[k] = o[k]);
+    return r;
+  }
+  
+  function test(api, key) {
+    try {
+      key = key || 'cargo'+(-new Date);
+      api['setItem'](key, key);
+      api['removeItem'](key);
+      return true;
+    } catch (e) {}
+    return false;
+  }
+    
   function abstracts(api) {
-    var und, stores = canStore(api), cache = {}, has = cache.hasOwnProperty;
-    return {
-        'stores': stores
-      , 'encode': JSON['parse']
-      , 'decode': JSON['stringify']
-      , 'get': stores ? function(k) {
-          return und == (k = api['getItem'](k)) ? und : k;
-        } : function(k) {
-          return !has.call(cache, k) ? und : cache[k];
-        }
-      , 'set': stores ? function(k, v) {
-          api['setItem'](k, v);
-        } : function(k, v) {
-          cache[k] = v;
-        }
-      , 'remove': stores ? function(k) {
-          api['removeItem'](k);
-        } : function(k) {
-          cache[k] = und;
-        }
+    var und, stores = test(api), cache = {}, all = stores ? api : cache;
+    function f(k, v) {
+      var n = arguments.length;
+      if (1 < n) return und === v ? f['remove'](k) : f['set'](k, v), v;
+      return n ? f['get'](k) : clone(all);
+    }
+    f['stores'] = stores;
+    f['encode'] = JSON['parse'];
+    f['decode'] = JSON['stringify'];
+    f['get'] = stores ? function(k) {
+      return und == (k = api['getItem'](k)) ? und : k;
+    } : function(k) {
+      return !has.call(cache, k) ? und : cache[k];
     };
+    f['set'] = stores ? function(k, v) {
+      api['setItem'](k, v);
+    } : function(k, v) {
+      cache[k] = v;
+    };
+    f['remove'] = stores ? function(k) {
+      api['removeItem'](k);
+    } : function(k) {
+      delete cache[k];
+    };
+    return f;
   }
 
   cargo['session'] = abstracts(win['sessionStorage']);
