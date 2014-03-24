@@ -6,7 +6,7 @@
 - Gracefully degrades to temporary storage
 - Works standalone or with build tools like [browserify](//www.npmjs.org/package/browserify) or [ender](//www.npmjs.org/package/ender)
 
-## API ([0.6](../../releases))
+## API ([0.7](../../releases))
 
 ### `cargo.local()`
 - `cargo.local(key?, value?)`
