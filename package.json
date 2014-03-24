@@ -1,7 +1,7 @@
 {
   "name": "cargo",
   "description": "HTML5 web storage module",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "homepage": "https://github.com/ryanve/cargo",
   "license": "MIT",
   "author": "Ryan Van Etten",
@@ -12,10 +12,33 @@
     "url": "https://github.com/ryanve/cargo.git"
   },
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-contrib-uglify": "~0.3.1",
+    "aok": "~1.8.1",
+    "universal": "~0.0.5",
+    "grunt": "~0.4.4",
+    "grunt-contrib-uglify": "~0.3.0",
     "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-jshint": "~0.8.0",
-    "aok": "~1.7.1"
+    "grunt-contrib-jshint": "~0.8.0"
+  },
+  "jshintConfig": {
+    "boss": true,
+    "browser": true,
+    "debug": true,
+    "devel": true,
+    "eqnull": true,
+    "evil": true,
+    "expr": true,
+    "globals": {
+      "define": true,
+      "ender": true 
+    },
+    "jquery": true,
+    "latedef": "nofunc",
+    "laxcomma": true,
+    "maxerr": 10,
+    "node": true,
+    "sub": true,
+    "supernew": true,
+    "undef": true,
+    "unused": true
   }
 }
