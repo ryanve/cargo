@@ -4,7 +4,7 @@
 - Abstracts the native storage APIs into a simple intuitive interface
 - Uses native `localStorage` and `sessionStorage` [where available](https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Storage#Browser_compatibility)
 - Gracefully degrades to temporary storage
-- Works standalone or with build tools like [browserify](//www.npmjs.org/package/browserify) or [ender](//www.npmjs.org/package/ender)
+- Works standalone or with build tools like [browserify](https://www.npmjs.org/package/browserify) or [ender](https://www.npmjs.org/package/ender)
 
 ## API ([0.7](../../releases))
 
