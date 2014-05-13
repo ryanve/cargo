@@ -15,7 +15,7 @@
   }
   
   function test(api, key) {
-    try {
+    if (api) try {
       key = key || 'cargo'+-new Date;
       api.setItem(key, key);
       api.removeItem(key);
@@ -23,7 +23,11 @@
     } catch (e) {}
     return false;
   }
-    
+  
+  /**
+   * @param {Storage=} api
+   * @return {Function} abstraction
+   */
   function abstracts(api) {
     var und, stores = test(api), cache = {}, all = stores ? api : cache;
     function f(k, v) {
@@ -54,5 +58,6 @@
 
   cargo['session'] = abstracts(win.sessionStorage);
   cargo['local'] = abstracts(win.localStorage);
+  cargo['temp'] = abstracts();
   return cargo;
 }));

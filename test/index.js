@@ -2,10 +2,11 @@
   var common = typeof module != 'undefined' && !!module.exports;
   var aok = common ? require('../node_modules/aok') : root.aok;
   var cargo = common ? require('../src') : root.cargo;
-  aok.prototype.express = aok.info;
-  aok.pass(['local', 'session'], function(type) {
+  if (![].some) aok.prototype.express = aok.info;
+  aok.pass(['local', 'session', 'temp'], function(type) {
     var id = '.' + type;
     aok.info(id + '.stores: ' + cargo[type].stores);
+    aok(id + '.stores is boolean', typeof cargo[type].stores == 'boolean');
     aok.fail(['get', 'set', 'remove'], function(method) {
       var sub = cargo[type][method], exists = typeof sub == 'function' || sub === false;
       aok({ id: [id, method].join('.'), test: exists });
