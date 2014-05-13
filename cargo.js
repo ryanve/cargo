@@ -1,63 +1,68 @@
 /*!
- * cargo 0.7.0+201403241820
+ * cargo 0.8.0+201405131636
  * https://github.com/ryanve/cargo
- * MIT License, 2014 Ryan Van Etten
+ * MIT License (c) 2014 Ryan Van Etten
  */
-(function(root, name, make) {
-  if (typeof module != 'undefined' && module.exports) module.exports = make();
-  else root[name] = make();
+!function(root, name, make) {
+  if (typeof module != 'undefined' && module.exports) module.exports = make()
+  else root[name] = make()
 }(this, 'cargo', function() {
 
   var cargo = {}
     , win = typeof window != 'undefined' && window
     , son = typeof JSON != 'undefined' && JSON || false
-    , has = {}.hasOwnProperty;
+    , has = {}.hasOwnProperty
     
   function clone(o) {
-    var k, r = {};
-    for (k in o) has.call(o, k) && (r[k] = o[k]);
-    return r;
+    var k, r = {}
+    for (k in o) has.call(o, k) && (r[k] = o[k])
+    return r
   }
   
   function test(api, key) {
-    try {
-      key = key || 'cargo'+-new Date;
-      api.setItem(key, key);
-      api.removeItem(key);
-      return true;
+    if (api) try {
+      key = key || 'cargo'+-new Date
+      api.setItem(key, key)
+      api.removeItem(key)
+      return true
     } catch (e) {}
-    return false;
+    return false
   }
-    
+  
+  /**
+   * @param {Storage=} api
+   * @return {Function} abstraction
+   */
   function abstracts(api) {
-    var und, stores = test(api), cache = {}, all = stores ? api : cache;
+    var und, stores = test(api), cache = {}, all = stores ? api : cache
     function f(k, v) {
-      var n = arguments.length;
-      if (1 < n) return und === v ? f['remove'](k) : f['set'](k, v), v;
-      return n ? f['get'](k) : clone(all);
+      var n = arguments.length
+      if (1 < n) return und === v ? f['remove'](k) : f['set'](k, v), v
+      return n ? f['get'](k) : clone(all)
     }
-    f['stores'] = stores;
-    f['decode'] = son.parse;
-    f['encode'] = son.stringify;
+    f['stores'] = stores
+    f['decode'] = son.parse
+    f['encode'] = son.stringify
     f['get'] = stores ? function(k) {
-      return und == (k = api.getItem(k)) ? und : k;
+      return und == (k = api.getItem(k)) ? und : k
     } : function(k) {
-      return !has.call(cache, k) ? und : cache[k];
-    };
+      return !has.call(cache, k) ? und : cache[k]
+    }
     f['set'] = stores ? function(k, v) {
-      api.setItem(k, v);
+      api.setItem(k, v)
     } : function(k, v) {
-      cache[k] = v;
-    };
+      cache[k] = v
+    }
     f['remove'] = stores ? function(k) {
-      api.removeItem(k);
+      api.removeItem(k)
     } : function(k) {
-      delete cache[k];
-    };
-    return f;
+      delete cache[k]
+    }
+    return f
   }
 
-  cargo['session'] = abstracts(win.sessionStorage);
-  cargo['local'] = abstracts(win.localStorage);
-  return cargo;
-}));
+  cargo['session'] = abstracts(win.sessionStorage)
+  cargo['local'] = abstracts(win.localStorage)
+  cargo['temp'] = abstracts()
+  return cargo
+});
