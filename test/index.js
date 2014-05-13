@@ -1,31 +1,30 @@
-(function(root) {
-  var common = typeof module != 'undefined' && !!module.exports;
-  var aok = common ? require('../node_modules/aok') : root.aok;
-  var cargo = common ? require('../src') : root.cargo;
-  if (![].some) aok.prototype.express = aok.info;
+!function(root) {
+  var common = typeof module != 'undefined' && !!module.exports
+  var aok = common ? require('../node_modules/aok') : root.aok
+  var cargo = common ? require('../src') : root.cargo
+  if (![].some) aok.prototype.express = aok.info
+
   aok.pass(['local', 'session', 'temp'], function(type) {
-    var id = '.' + type;
-    aok.info(id + '.stores: ' + cargo[type].stores);
-    aok(id + '.stores is boolean', typeof cargo[type].stores == 'boolean');
+    var api = cargo[type], id = '.' + type
+    aok.info(id + '.stores: ' + api.stores)
+    aok(id + '.stores is boolean', typeof api.stores == 'boolean')
+    aok('.encode', false === api.encode || typeof api.encode({}) == 'string')
+    aok('.decode', false === api.decode || typeof api.decode('{}') == 'object')
+
     aok.fail(['get', 'set', 'remove'], function(method) {
-      var sub = cargo[type][method], exists = typeof sub == 'function' || sub === false;
-      aok({ id: [id, method].join('.'), test: exists });
-      return exists;
-    }) || aok({
-      id: id,
-      test: function() {
-        var k = id, api = cargo[type];
-        api.set(k, k);
-        if (k !== api.get(k)) return false;
-        api.remove(k);
-        if (null != api.get(k)) return false;
-        if (k !== api(k, k) || k !== api(k)) return false;
-        api(k, void 0); // should delegate to .remove
-        if (null != api(k)) return false;
-        return '[object Object]' === aok.explain(api());
-      }
-    });
-  });
-  cargo.local.encode && aok({ id:'.encode', test: typeof cargo.local.encode({}) == 'string' });
-  cargo.local.decode && aok({ id:'.decode', test: typeof cargo.local.decode('{}') == 'object' });
-}(this));
+      var sub = api[method], exists = typeof sub == 'function' || sub === false
+      aok([id, method].join('.'), exists)
+      return exists
+    }) || aok(id, function() {
+      var k = id
+      api.set(k, k)
+      if (k !== api.get(k)) return false
+      api.remove(k)
+      if (null != api.get(k)) return false
+      if (k !== api(k, k) || k !== api(k)) return false
+      api(k, void 0) // should delegate to .remove
+      if (null != api(k)) return false
+      return '[object Object]' === aok.explain(api())
+    })
+  })
+}(this);
