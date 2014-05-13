@@ -3,10 +3,10 @@
 
 - Abstracts the native storage APIs into a simple intuitive interface
 - Uses native `localStorage` and `sessionStorage` [where available](https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Storage#Browser_compatibility)
-- Gracefully degrades to temporary storage
+- Gracefully degrades to [temporary](#storage-duration) storage
 - Works standalone or with build tools like [browserify](https://www.npmjs.org/package/browserify) or [ender](https://www.npmjs.org/package/ender)
 
-## API ([0.7](../../releases))
+## API ([0.8](../../releases))
 
 ### `cargo.local()`
 - `cargo.local(key?, value?)`
@@ -28,10 +28,23 @@
 - `cargo.session.set(key, value)`
 - `cargo.session.remove(key)`
 
-## Fund
+### `cargo.temp()`
+- `cargo.temp(key?, value?)`
+  - `cargo.temp()` get all
+  - `cargo.temp(key)` get 
+  - `cargo.temp(key, value)` set 
+  - `cargo.temp(key, undefined)` remove
+- `cargo.temp.get(key)`
+- `cargo.temp.set(key, value)`
+- `cargo.temp.remove(key)`
 
+## Storage duration
+- [<b>local</b>](http://www.w3.org/TR/webstorage/#the-localstorage-attribute) storage stores for unlimited browser sessions
+- [<b>session</b>](http://www.w3.org/TR/webstorage/#the-sessionstorage-attribute) storage stores for the current browser session
+- <b>temp</b> storage stores until the user refreshes or closes the current page
+
+## Fund
 Support this project by [tipping the developer](https://www.gittip.com/ryanve/) <samp><b>=)</b></samp>
 
 ## License
-
 MIT
